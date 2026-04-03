@@ -1,7 +1,6 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { Card } from "@/components/ui/Card";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 const testimonials = [
@@ -11,7 +10,6 @@ const testimonials = [
     name: "Dr. Sarah Mitchell",
     practice: "Family Practice",
     location: "Austin, TX",
-    providers: "8 providers",
     initials: "SM",
   },
   {
@@ -20,7 +18,6 @@ const testimonials = [
     name: "Dr. James Okafor",
     practice: "Internal Medicine",
     location: "Chicago, IL",
-    providers: "4 providers",
     initials: "JO",
   },
   {
@@ -29,55 +26,57 @@ const testimonials = [
     name: "Maria Chen",
     practice: "Pacific Orthopedics",
     location: "Seattle, WA",
-    providers: "Practice Manager",
     initials: "MC",
   },
 ];
 
 export function Testimonials() {
   return (
-    <section className="py-24 relative">
+    <section className="py-20">
       <div className="container mx-auto">
-        <AnimatedSection className="text-center mb-16">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">
+        <AnimatedSection className="mb-12">
+          <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-teal mb-3">
+            Testimonials
+          </p>
+          <h2
+            className="font-display font-bold text-white leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", letterSpacing: "-0.025em" }}
+          >
             Practices That Trust BillingAlign
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Real results from real healthcare practices.
-          </p>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4">
           {testimonials.map((t, i) => (
-            <AnimatedSection key={t.name} delay={i * 0.1}>
-              <Card hover={false} className="h-full flex flex-col">
+            <AnimatedSection key={t.name} delay={i * 0.05}>
+              <div className="bg-white/[0.03] border border-white/5 rounded-xl p-7 h-full flex flex-col">
                 {/* Stars */}
                 <div className="flex gap-0.5 mb-4">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-gold text-gold" />
+                    <Star key={j} className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
                   ))}
                 </div>
 
                 {/* Quote */}
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                <p className="text-[#94A3B8] text-sm leading-[1.7] mb-6 flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </p>
 
                 {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                  <div className="w-10 h-10 rounded-full bg-teal-muted flex items-center justify-center">
-                    <span className="text-teal text-sm font-bold font-display">
+                <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+                  <div className="w-9 h-9 rounded-full bg-teal/[0.08] border border-teal/[0.15] flex items-center justify-center shrink-0">
+                    <span className="text-teal text-xs font-bold font-display">
                       {t.initials}
                     </span>
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium">{t.name}</p>
-                    <p className="text-gray-400 text-xs">
-                      {t.practice}, {t.location} — {t.providers}
+                    <p className="text-[#94A3B8] text-xs">
+                      {t.practice} &middot; {t.location}
                     </p>
                   </div>
                 </div>
-              </Card>
+              </div>
             </AnimatedSection>
           ))}
         </div>

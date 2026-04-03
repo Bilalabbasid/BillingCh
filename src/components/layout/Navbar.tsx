@@ -37,7 +37,7 @@ export function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -55,25 +55,20 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300",
           scrolled
-            ? "h-16 bg-navy/80 backdrop-blur-xl border-b border-white/5"
-            : "h-20 bg-transparent"
+            ? "bg-[rgba(7,14,26,0.92)] backdrop-blur-[12px] border-b border-white/[0.06]"
+            : "bg-transparent"
         )}
       >
         <div className="container mx-auto h-full flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-teal flex items-center justify-center font-display font-bold text-navy text-lg">
-              B
-            </div>
-            <span className="font-display font-bold text-xl text-white group-hover:text-teal transition-colors">
-              BillingAlign
-            </span>
+          {/* Logo wordmark */}
+          <Link href="/" className="font-display font-bold text-xl">
+            <span className="text-white">Billing</span><span className="text-teal">Align</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <div
                 key={link.label}
@@ -83,7 +78,7 @@ export function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="flex items-center gap-1 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                  className="flex items-center gap-1 text-[0.875rem] font-medium text-[#94A3B8] hover:text-white transition-colors"
                 >
                   {link.label}
                   {link.hasDropdown && (
@@ -99,30 +94,28 @@ export function Navbar() {
                   <AnimatePresence>
                     {dropdownOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8 }}
+                        initial={{ opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-1 w-[340px] p-3 rounded-xl bg-navy-mid/95 backdrop-blur-xl border border-white/10 shadow-2xl"
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.1 }}
+                        className="absolute top-full left-0 mt-2 w-[320px] p-6 rounded-xl bg-[#0F1E35] border border-[#1E3A5F] shadow-[0_24px_64px_rgba(0,0,0,0.6)]"
                       >
                         <div className="grid gap-0.5">
                           {solutionsDropdown.map((item) => (
                             <Link
                               key={item.label}
                               href={item.href}
-                              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors group"
+                              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[#94A3B8] hover:text-white hover:bg-white/[0.04] transition-colors"
                             >
-                              <div className="w-8 h-8 rounded-lg bg-teal-muted flex items-center justify-center group-hover:bg-teal/20 transition-colors">
-                                <item.icon className="w-4 h-4 text-teal" />
-                              </div>
+                              <item.icon className="w-4 h-4 text-[#94A3B8]" />
                               {item.label}
                             </Link>
                           ))}
                         </div>
-                        <div className="mt-2 pt-2 border-t border-white/5">
+                        <div className="mt-3 pt-3 border-t border-[#1E3A5F]">
                           <Link
                             href="/services"
-                            className="block px-3 py-2 text-sm text-teal hover:text-teal-dark transition-colors"
+                            className="text-sm text-[#94A3B8] hover:text-white transition-colors"
                           >
                             View all 21 services →
                           </Link>
@@ -149,7 +142,7 @@ export function Navbar() {
 
           {/* Mobile Hamburger */}
           <button
-            className="lg:hidden p-2 text-white hover:text-teal transition-colors"
+            className="lg:hidden p-2 text-[#94A3B8] hover:text-white transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
@@ -174,15 +167,18 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[300px] bg-navy-mid z-50 p-6 flex flex-col lg:hidden overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#0F1E35] border-l border-[#1E3A5F] z-50 p-6 flex flex-col lg:hidden overflow-y-auto"
             >
-              <div className="flex justify-end mb-8">
+              <div className="flex justify-between items-center mb-8">
+                <span className="font-display font-bold text-lg">
+                  <span className="text-white">Billing</span><span className="text-teal">Align</span>
+                </span>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="p-2 text-gray-400 hover:text-white"
+                  className="p-2 text-[#94A3B8] hover:text-white"
                   aria-label="Close menu"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex flex-col gap-1">
@@ -191,7 +187,7 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="px-4 py-3 text-lg text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                    className="px-3 py-3 text-sm text-[#94A3B8] hover:text-white hover:bg-white/[0.04] rounded-lg transition-colors"
                   >
                     {link.label}
                   </Link>

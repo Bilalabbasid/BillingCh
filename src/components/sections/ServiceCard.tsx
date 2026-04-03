@@ -7,8 +7,6 @@ import {
   Video, Phone, UserPlus, FolderSearch, BarChart3, Building2,
   Server, Network, Bot, type LucideIcon
 } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Service } from "@/lib/services-data";
 
@@ -28,37 +26,38 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
   const Icon = iconMap[service.iconName] ?? TrendingUp;
 
   return (
-    <AnimatedSection delay={index * 0.05}>
-      <Card hover={false} className="h-full">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-teal-muted flex items-center justify-center shrink-0">
-            <Icon className="w-6 h-6 text-teal" />
+    <AnimatedSection delay={Math.min(index, 3) * 0.05}>
+      <div className="bg-[#0F1E35] border border-[#1E3A5F] rounded-2xl p-8 h-full transition-all duration-200 hover:border-teal hover:shadow-[0_0_0_1px_#00C9B1,0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-0.5">
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-10 h-10 rounded-lg bg-teal/[0.08] border border-teal/[0.15] flex items-center justify-center shrink-0">
+            <Icon className="w-5 h-5 text-teal" />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-display font-semibold text-lg text-white">
-                {service.title}
-              </h3>
-            </div>
-            <Badge variant="outline" className="text-[10px]">
+            <h3
+              className="font-semibold text-white mb-1"
+              style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
+            >
+              {service.title}
+            </h3>
+            <span className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wide">
               {service.categoryLabel}
-            </Badge>
+            </span>
           </div>
         </div>
 
-        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+        <p className="text-[#94A3B8] text-sm leading-[1.7] mb-4">
           {service.description}
         </p>
 
         {service.stats && (
-          <p className="text-teal text-xs font-medium mb-4 px-3 py-2 rounded-lg bg-teal-muted">
+          <p className="text-teal text-xs font-medium mb-4 px-3 py-2 rounded-lg bg-teal/[0.08] border border-teal/[0.15]">
             {service.stats}
           </p>
         )}
 
         <ul className="space-y-2 mb-6">
           {service.bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-2 text-sm text-gray-400">
+            <li key={bullet} className="flex items-start gap-2.5 text-sm text-[#94A3B8]">
               <Check className="w-4 h-4 text-teal shrink-0 mt-0.5" />
               {bullet}
             </li>
@@ -67,12 +66,13 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
 
         <a
           href="/contact"
-          className="inline-flex items-center gap-1.5 text-teal text-sm font-medium hover:text-teal-dark transition-colors group"
+          className="inline-flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-white transition-colors group"
         >
           Talk to an Expert
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </a>
-      </Card>
+      </div>
     </AnimatedSection>
   );
 }
+

@@ -5,31 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-lg font-body font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-navy disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 font-body font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-navy disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
   {
     variants: {
       variant: {
         primary:
-          "bg-teal text-navy hover:bg-teal-dark shadow-lg shadow-teal/20 hover:shadow-teal/40",
+          "bg-teal text-navy rounded-lg shadow-sm hover:bg-teal-dark hover:-translate-y-px hover:shadow-md active:translate-y-0 active:shadow-sm",
         outline:
-          "border border-white/20 text-white hover:border-teal hover:text-teal bg-transparent",
+          "border border-white/20 text-white bg-transparent rounded-lg hover:border-white/50 hover:bg-white/[0.04]",
         ghost:
-          "text-gray-400 hover:text-white hover:bg-white/5 bg-transparent",
+          "text-[#94A3B8] hover:text-white bg-transparent",
       },
       size: {
         sm: "h-9 px-4 text-sm",
-        md: "h-11 px-6 text-sm",
-        lg: "h-13 px-8 text-base",
-      },
-      pulse: {
-        true: "animate-pulse-glow",
-        false: "",
+        md: "h-11 px-6 text-[0.9375rem]",
+        lg: "h-13 px-8 text-[0.9375rem]",
       },
     },
     defaultVariants: {
       variant: "primary",
       size: "md",
-      pulse: false,
     },
   }
 );
@@ -41,10 +36,10 @@ export interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, pulse, children, ...props }, ref) => {
+  ({ className, variant, size, children, ...props }, ref) => {
     return (
       <button
-        className={cn(buttonVariants({ variant, size, pulse, className }))}
+        className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       >

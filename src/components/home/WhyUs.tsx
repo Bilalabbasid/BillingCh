@@ -26,46 +26,59 @@ const differentiators = [
   },
 ];
 
+const badges = ["HIPAA Compliant", "AAPC Certified", "AHIMA Member", "SOC 2 Compliant"];
+
 export function WhyUs() {
   return (
-    <section className="py-24 bg-navy-mid relative noise-overlay">
-      <div className="container mx-auto relative z-10">
-        <AnimatedSection className="text-center mb-16">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">
+    <section className="py-20 bg-[#070E1A]">
+      <div className="container mx-auto">
+        <AnimatedSection className="mb-12">
+          <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-teal mb-3">
+            Why BillingAlign
+          </p>
+          <h2
+            className="font-display font-bold text-white leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", letterSpacing: "-0.025em" }}
+          >
             The BillingAlign Difference
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            What sets us apart from every other billing company.
-          </p>
         </AnimatedSection>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {differentiators.map((item, i) => (
-            <AnimatedSection key={item.title} delay={i * 0.1}>
-              <div className="text-center lg:text-left">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-teal-muted mb-4">
-                  <item.icon className="w-7 h-7 text-teal" />
-                </div>
-                <h3 className="font-display font-semibold text-lg text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="border border-[#1E3A5F] rounded-2xl overflow-hidden mb-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#1E3A5F]">
+            {differentiators.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <AnimatedSection key={item.title} delay={i * 0.05}>
+                  <div className="bg-[#070E1A] p-8 h-full">
+                    <div className="w-10 h-10 rounded-lg bg-teal/[0.08] border border-teal/[0.15] flex items-center justify-center mb-5">
+                      <Icon className="w-5 h-5 text-teal" />
+                    </div>
+                    <h3
+                      className="font-semibold text-white mb-2"
+                      style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className="text-[#94A3B8] text-sm leading-[1.7]">
+                      {item.description}
+                    </p>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
         </div>
 
         {/* Compliance badges */}
-        <AnimatedSection delay={0.4} className="flex flex-wrap justify-center gap-4">
-          {["HIPAA Compliant", "AAPC Certified", "AHIMA Member"].map((badge) => (
+        <AnimatedSection delay={0.15} className="flex flex-wrap gap-2">
+          {badges.map((badge) => (
             <div
               key={badge}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-navy/40"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#1E3A5F]"
             >
-              <div className="w-2 h-2 rounded-full bg-teal" />
-              <span className="text-sm text-gray-400 font-medium">{badge}</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-teal" />
+              <span className="text-sm text-[#94A3B8]">{badge}</span>
             </div>
           ))}
         </AnimatedSection>

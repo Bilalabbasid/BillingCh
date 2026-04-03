@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Check, ArrowRight, HelpCircle, ChevronDown } from "lucide-react";
+import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { PageHero } from "@/components/sections/PageHero";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -150,88 +148,114 @@ export default function PricingPage() {
           {/* Pricing Tiers */}
           <div className="grid md:grid-cols-3 gap-6 mb-24">
             {tiers.map((tier, i) => (
-              <AnimatedSection key={tier.name} delay={i * 0.1}>
-                <div
-                  className={cn(
-                    "glass-card rounded-2xl p-8 h-full flex flex-col relative",
-                    tier.popular && "border-teal/40 shadow-lg shadow-teal/10",
-                    !tier.popular && "hover:transform-none"
-                  )}
-                >
-                  {tier.popular && (
-                    <Badge variant="solid" className="absolute -top-3 left-1/2 -translate-x-1/2 uppercase tracking-wider">
-                      Most Popular
-                    </Badge>
-                  )}
-
-                  <div className="mb-6">
-                    <h3 className="font-display font-bold text-2xl text-white mb-1">
-                      {tier.name}
-                    </h3>
-                    <p className="text-sm text-gray-400">{tier.badge}</p>
-                  </div>
-
-                  <div className="mb-6">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xs text-gray-400">Starting at</span>
-                    </div>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-display font-bold text-4xl text-white">
-                        {tier.price}
+              <AnimatedSection key={tier.name} delay={i * 0.08}>
+                {tier.popular ? (
+                  /* Style C — Featured card */
+                  <div className="relative rounded-[20px] overflow-hidden border border-teal/[0.35] bg-gradient-to-br from-[#0D2A40] to-[#0B1E30] shadow-[0_24px_64px_rgba(0,0,0,0.5),0_0_0_1px_rgba(0,201,177,0.15)] p-8 h-full flex flex-col">
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-teal" />
+                    <div className="mb-2">
+                      <span className="inline-block text-[11px] font-semibold tracking-[0.08em] uppercase text-teal border border-teal/30 px-2.5 py-1 rounded-md">
+                        Most Popular
                       </span>
-                      <span className="text-sm text-gray-400">{tier.priceNote}</span>
                     </div>
+                    <div className="mb-4">
+                      <h3
+                        className="font-display font-bold text-white mb-1"
+                        style={{ fontSize: "1.375rem", letterSpacing: "-0.015em" }}
+                      >
+                        {tier.name}
+                      </h3>
+                      <p className="text-sm text-[#94A3B8]">{tier.badge}</p>
+                    </div>
+                    <div className="mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-display font-bold text-[2.5rem] text-white leading-none">
+                          {tier.price}
+                        </span>
+                        <span className="text-sm text-[#94A3B8]">{tier.priceNote}</span>
+                      </div>
+                    </div>
+                    <ul className="space-y-3 mb-8 flex-1">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2.5 text-sm text-[#94A3B8]">
+                          <Check className="w-4 h-4 text-teal shrink-0 mt-0.5" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href="/contact">
+                      <Button variant="primary" size="lg" className="w-full justify-center">
+                        {tier.cta}
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
                   </div>
-
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-sm text-gray-400">
-                        <Check className="w-4 h-4 text-teal shrink-0 mt-0.5" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link href="/contact">
-                    <Button
-                      variant={tier.popular ? "primary" : "outline"}
-                      size="lg"
-                      className="w-full justify-center"
-                      pulse={tier.popular}
-                    >
-                      {tier.cta}
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                </div>
+                ) : (
+                  /* Style A — Standard card */
+                  <div className="bg-navy-panel border border-[#1E3A5F] rounded-2xl p-8 h-full flex flex-col transition-all duration-200 hover:border-teal hover:shadow-[0_0_0_1px_#00C9B1,0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-0.5">
+                    <div className="mb-4">
+                      <h3
+                        className="font-display font-bold text-white mb-1"
+                        style={{ fontSize: "1.375rem", letterSpacing: "-0.015em" }}
+                      >
+                        {tier.name}
+                      </h3>
+                      <p className="text-sm text-[#94A3B8]">{tier.badge}</p>
+                    </div>
+                    <div className="mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-display font-bold text-[2.5rem] text-white leading-none">
+                          {tier.price}
+                        </span>
+                        <span className="text-sm text-[#94A3B8]">{tier.priceNote}</span>
+                      </div>
+                    </div>
+                    <ul className="space-y-3 mb-8 flex-1">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2.5 text-sm text-[#94A3B8]">
+                          <Check className="w-4 h-4 text-teal shrink-0 mt-0.5" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href="/contact">
+                      <Button variant="outline" size="lg" className="w-full justify-center">
+                        {tier.cta}
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </AnimatedSection>
             ))}
           </div>
 
           {/* FAQ Section */}
           <AnimatedSection className="max-w-3xl mx-auto">
-            <div className="text-center mb-10">
-              <Badge className="mb-4">
-                <HelpCircle className="w-3.5 h-3.5" />
+            <div className="mb-10">
+              <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-teal mb-3">
                 FAQ
-              </Badge>
-              <h2 className="font-display font-bold text-3xl text-white">
+              </p>
+              <h2
+                className="font-display font-bold text-white leading-[1.1]"
+                style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", letterSpacing: "-0.025em" }}
+              >
                 Frequently Asked Questions
               </h2>
             </div>
 
-            <Accordion.Root type="single" collapsible className="space-y-3">
+            <Accordion.Root type="single" collapsible className="space-y-2">
               {faqs.map((faq, i) => (
                 <Accordion.Item
                   key={i}
                   value={`faq-${i}`}
-                  className="glass-card rounded-xl overflow-hidden hover:transform-none"
+                  className="bg-white/[0.03] border border-white/5 rounded-xl overflow-hidden"
                 >
                   <Accordion.Trigger className="flex items-center justify-between w-full px-6 py-4 text-left text-white text-sm font-medium group">
                     {faq.q}
-                    <ChevronDown className="w-4 h-4 text-gray-400 shrink-0 ml-4 transition-transform group-data-[state=open]:rotate-180" />
+                    <ChevronDown className="w-4 h-4 text-[#94A3B8] shrink-0 ml-4 transition-transform group-data-[state=open]:rotate-180" />
                   </Accordion.Trigger>
-                  <Accordion.Content className="px-6 pb-4 text-sm text-gray-400 leading-relaxed data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
+                  <Accordion.Content className="px-6 pb-4 text-sm text-[#94A3B8] leading-[1.7] data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                     {faq.a}
                   </Accordion.Content>
                 </Accordion.Item>

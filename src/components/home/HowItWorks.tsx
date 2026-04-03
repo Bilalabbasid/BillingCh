@@ -26,40 +26,46 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-24 relative">
+    <section className="py-20">
       <div className="container mx-auto">
-        <AnimatedSection className="text-center mb-16">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">
+        <AnimatedSection className="mb-12">
+          <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-teal mb-3">
+            How It Works
+          </p>
+          <h2
+            className="font-display font-bold text-white leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", letterSpacing: "-0.025em" }}
+          >
             Get Started in 3 Simple Steps
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            From consultation to cash flow in days, not months.
-          </p>
         </AnimatedSection>
 
-        <div className="relative max-w-4xl mx-auto">
-          {/* Dotted connector line */}
-          <div className="hidden lg:block absolute top-24 left-[16.67%] right-[16.67%] h-px border-t-2 border-dashed border-teal/30" />
-
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {steps.map((step, i) => (
-              <AnimatedSection key={step.number} delay={i * 0.15} className="text-center relative">
-                <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-teal-muted mb-4 relative">
-                    <step.icon className="w-7 h-7 text-teal" />
-                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-teal text-navy text-xs font-bold flex items-center justify-center font-display">
+        <div className="border border-[#1E3A5F] rounded-2xl overflow-hidden">
+          <div className="grid md:grid-cols-3 gap-px bg-[#1E3A5F]">
+            {steps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <AnimatedSection key={step.number} delay={i * 0.08}>
+                  <div className="bg-navy p-8 h-full">
+                    <div className="text-[0.75rem] font-bold tracking-[0.12em] text-[#94A3B8] mb-5">
                       {step.number}
-                    </span>
+                    </div>
+                    <div className="w-10 h-10 rounded-lg bg-teal/[0.08] border border-teal/[0.15] flex items-center justify-center mb-5">
+                      <Icon className="w-5 h-5 text-teal" />
+                    </div>
+                    <h3
+                      className="font-semibold text-white mb-3"
+                      style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
+                    >
+                      {step.title}
+                    </h3>
+                    <p className="text-[#94A3B8] text-sm leading-[1.7]">
+                      {step.description}
+                    </p>
                   </div>
-                  <h3 className="font-display font-semibold text-lg text-white mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              );
+            })}
           </div>
         </div>
       </div>

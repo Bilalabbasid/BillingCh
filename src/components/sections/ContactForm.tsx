@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, ChevronDown } from "lucide-react";
+import { Send, AlertCircle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -37,9 +37,21 @@ const serviceOptions = [
   "EHR", "Telehealth", "FrontDesk Assist", "Other",
 ];
 
-const inputClasses = "w-full h-11 px-4 rounded-lg bg-navy border border-white/10 text-white text-sm placeholder:text-gray-400 focus:outline-none focus:border-teal transition-colors";
-const labelClasses = "block text-sm text-white font-medium mb-1.5";
-const errorClasses = "text-xs text-red-400 mt-1";
+const inputBase =
+  "w-full px-3.5 py-2.5 rounded-lg bg-[#070E1A] border text-white text-[0.9375rem] placeholder:text-[#4A6080] focus:outline-none transition-all";
+const inputNormal = `${inputBase} border-[#1E3A5F] focus:border-teal focus:shadow-[0_0_0_3px_rgba(0,201,177,0.12)]`;
+const inputError = `${inputBase} border-[#EF4444] focus:border-[#EF4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.12)]`;
+const labelClasses = "block text-[0.875rem] font-medium text-[#CBD5E1] mb-1.5";
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <p className="flex items-center gap-1 text-xs text-[#EF4444] mt-1">
+      <AlertCircle className="w-3 h-3 shrink-0" />
+      {message}
+    </p>
+  );
+}
 
 export function ContactForm() {
   const {
@@ -51,7 +63,6 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Handle form submission
     console.log(data);
   };
 
@@ -64,9 +75,9 @@ export function ContactForm() {
             id="firstName"
             {...register("firstName")}
             placeholder="John"
-            className={cn(inputClasses, errors.firstName && "border-red-400")}
+            className={errors.firstName ? inputError : inputNormal}
           />
-          {errors.firstName && <p className={errorClasses}>{errors.firstName.message}</p>}
+          <FieldError message={errors.firstName?.message} />
         </div>
         <div>
           <label htmlFor="lastName" className={labelClasses}>Last Name</label>
@@ -74,9 +85,9 @@ export function ContactForm() {
             id="lastName"
             {...register("lastName")}
             placeholder="Doe"
-            className={cn(inputClasses, errors.lastName && "border-red-400")}
+            className={errors.lastName ? inputError : inputNormal}
           />
-          {errors.lastName && <p className={errorClasses}>{errors.lastName.message}</p>}
+          <FieldError message={errors.lastName?.message} />
         </div>
       </div>
 
@@ -88,9 +99,9 @@ export function ContactForm() {
             type="email"
             {...register("email")}
             placeholder="john@practice.com"
-            className={cn(inputClasses, errors.email && "border-red-400")}
+            className={errors.email ? inputError : inputNormal}
           />
-          {errors.email && <p className={errorClasses}>{errors.email.message}</p>}
+          <FieldError message={errors.email?.message} />
         </div>
         <div>
           <label htmlFor="phone" className={labelClasses}>Phone</label>
@@ -99,9 +110,9 @@ export function ContactForm() {
             type="tel"
             {...register("phone")}
             placeholder="(555) 123-4567"
-            className={cn(inputClasses, errors.phone && "border-red-400")}
+            className={errors.phone ? inputError : inputNormal}
           />
-          {errors.phone && <p className={errorClasses}>{errors.phone.message}</p>}
+          <FieldError message={errors.phone?.message} />
         </div>
       </div>
 
@@ -111,9 +122,9 @@ export function ContactForm() {
           id="practiceName"
           {...register("practiceName")}
           placeholder="Your Practice Name"
-          className={cn(inputClasses, errors.practiceName && "border-red-400")}
+          className={errors.practiceName ? inputError : inputNormal}
         />
-        {errors.practiceName && <p className={errorClasses}>{errors.practiceName.message}</p>}
+        <FieldError message={errors.practiceName?.message} />
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -123,16 +134,19 @@ export function ContactForm() {
             <select
               id="specialty"
               {...register("specialty")}
-              className={cn(inputClasses, "appearance-none pr-10 cursor-pointer", errors.specialty && "border-red-400")}
+              className={cn(
+                errors.specialty ? inputError : inputNormal,
+                "appearance-none pr-10 cursor-pointer"
+              )}
             >
-              <option value="" className="bg-navy-mid">Select specialty</option>
+              <option value="" className="bg-[#0F1E35]">Select specialty</option>
               {specialties.map((s) => (
-                <option key={s} value={s} className="bg-navy-mid">{s}</option>
+                <option key={s} value={s} className="bg-[#0F1E35]">{s}</option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4A6080] pointer-events-none" />
           </div>
-          {errors.specialty && <p className={errorClasses}>{errors.specialty.message}</p>}
+          <FieldError message={errors.specialty?.message} />
         </div>
         <div>
           <label htmlFor="providers" className={labelClasses}>Number of Providers</label>
@@ -140,16 +154,19 @@ export function ContactForm() {
             <select
               id="providers"
               {...register("providers")}
-              className={cn(inputClasses, "appearance-none pr-10 cursor-pointer", errors.providers && "border-red-400")}
+              className={cn(
+                errors.providers ? inputError : inputNormal,
+                "appearance-none pr-10 cursor-pointer"
+              )}
             >
-              <option value="" className="bg-navy-mid">Select</option>
+              <option value="" className="bg-[#0F1E35]">Select</option>
               {providerCounts.map((p) => (
-                <option key={p} value={p} className="bg-navy-mid">{p}</option>
+                <option key={p} value={p} className="bg-[#0F1E35]">{p}</option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-gray-400" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4A6080] pointer-events-none" />
           </div>
-          {errors.providers && <p className={errorClasses}>{errors.providers.message}</p>}
+          <FieldError message={errors.providers?.message} />
         </div>
       </div>
 
@@ -159,13 +176,13 @@ export function ContactForm() {
           {serviceOptions.map((service) => (
             <label
               key={service}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-navy/40 border border-white/5 hover:border-teal/30 cursor-pointer transition-colors text-sm text-gray-400 hover:text-white"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#070E1A] border border-[#1E3A5F] hover:border-teal/50 cursor-pointer transition-colors text-sm text-[#94A3B8] hover:text-white"
             >
               <input
                 type="checkbox"
                 value={service}
                 {...register("services")}
-                className="w-4 h-4 rounded border-white/20 bg-navy text-teal focus:ring-teal focus:ring-offset-0"
+                className="w-4 h-4 rounded border-[#1E3A5F] bg-[#070E1A] text-teal focus:ring-teal focus:ring-offset-0"
               />
               {service}
             </label>
@@ -180,7 +197,7 @@ export function ContactForm() {
           {...register("message")}
           rows={4}
           placeholder="Tell us about your billing challenges..."
-          className={cn(inputClasses, "h-auto py-3 resize-none")}
+          className={cn(inputNormal, "h-auto resize-none")}
         />
       </div>
 
@@ -189,9 +206,10 @@ export function ContactForm() {
         {isSubmitting ? "Sending..." : "Request My Free Demo"}
       </Button>
 
-      <p className="text-center text-xs text-gray-400">
-        Response within 24 hours &bull; No commitment required &bull; HIPAA-safe
+      <p className="text-center text-xs text-[#94A3B8]">
+        Response within 24 hours &middot; No commitment required &middot; HIPAA-safe
       </p>
     </form>
   );
 }
+
