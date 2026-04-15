@@ -150,11 +150,6 @@ export function Navbar() {
 
           {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/contact">
-              <Button variant="ghost" size="sm" className="text-[0.875rem]">
-                Sign In
-              </Button>
-            </Link>
             <Link href="/contact#contact-form">
               <Button variant="glow" size="sm" className="text-[0.875rem]">
                 Request a Demo
