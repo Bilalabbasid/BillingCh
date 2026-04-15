@@ -33,9 +33,9 @@ export function AnimatedSection({
       initial={{ opacity: 0, ...directionMap[direction] }}
       animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
       transition={{
-        duration: 0.4,
+        duration: 0.5,
         delay,
-        ease: "easeOut",
+        ease: [0.21, 0.47, 0.32, 0.98],
       }}
       className={cn(className)}
     >

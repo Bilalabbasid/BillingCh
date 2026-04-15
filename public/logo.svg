@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" fill="none" role="img" aria-label="BillingAlign logo">
+  <defs>
+    <!-- Hexagon gradients -->
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F2A4A"/>
+      <stop offset="100%" stop-color="#0B1E38"/>
+    </linearGradient>
+    <linearGradient id="hexBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E5080" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0D3460" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="plusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00DFC8"/>
+      <stop offset="100%" stop-color="#00C9B1"/>
+    </linearGradient>
+    <linearGradient id="alignGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00C9B1"/>
+      <stop offset="100%" stop-color="#00B0A0"/>
+    </linearGradient>
+    <!-- Subtle inner glow filter -->
+    <filter id="innerGlow" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Drop shadow for hexagon -->
+    <filter id="hexShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00C9B1" flood-opacity="0.15"/>
+    </filter>
+    <!-- Glow filter for plus sign -->
+    <filter id="plusGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ── Hexagon icon ── -->
+  <!-- Rounded hexagon: center (55,60), circumradius ~44 -->
+  <g filter="url(#hexShadow)">
+    <path
+      d="M55 14
+         L93.1 35
+         L93.1 77
+         L55 98
+         L16.9 77
+         L16.9 35
+         Z"
+      fill="url(#hexGrad)"
+      rx="4"
+    />
+    <!-- Hexagon border accent -->
+    <path
+      d="M55 14
+         L93.1 35
+         L93.1 77
+         L55 98
+         L16.9 77
+         L16.9 35
+         Z"
+      fill="none"
+      stroke="url(#hexBorder)"
+      stroke-width="1.2"
+    />
+    <!-- Top highlight edge -->
+    <path
+      d="M55 14 L93.1 35"
+      fill="none"
+      stroke="rgba(255,255,255,0.12)"
+      stroke-width="1"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <!-- Plus / cross icon centered in hexagon -->
+  <g filter="url(#plusGlow)">
+    <!-- Horizontal bar -->
+    <rect x="40" y="54.5" width="30" height="11" rx="3" fill="url(#plusGrad)" opacity="0.95"/>
+    <!-- Vertical bar -->
+    <rect x="49.5" y="45" width="11" height="30" rx="3" fill="url(#plusGrad)" opacity="0.95"/>
+  </g>
+
+  <!-- ── Wordmark ── -->
+  <!-- "Billing" — dark white/light, bold -->
+  <text
+    x="118"
+    y="70"
+    font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="700"
+    font-size="42"
+    letter-spacing="-1.5"
+    fill="#F1F5F9"
+  >Billing</text>
+
+  <!-- "Align" — teal gradient -->
+  <text
+    x="118"
+    y="70"
+    font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="700"
+    font-size="42"
+    letter-spacing="-1.5"
+    fill="url(#alignGrad)"
+    dx="162"
+  >Align</text>
+
+  <!-- Tagline "REVENUE CYCLE MANAGEMENT" -->
+  <text
+    x="119"
+    y="90"
+    font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="500"
+    font-size="10.5"
+    letter-spacing="3.5"
+    fill="#64748B"
+    text-anchor="start"
+  >REVENUE CYCLE MANAGEMENT</text>
+
+  <!-- Subtle teal accent line under Billing (partial) -->
+  <line x1="118" y1="75" x2="278" y2="75" stroke="url(#alignGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+</svg>
