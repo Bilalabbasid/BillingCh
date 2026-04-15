@@ -28,7 +28,6 @@ const solutionsDropdown = [
 const navLinks = [
   { label: "Solutions", href: "/services", hasDropdown: true },
   { label: "Who We Serve", href: "/who-we-serve" },
-  { label: "Resources", href: "/resources" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
 ];
