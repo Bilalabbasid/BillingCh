@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Globe, X, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Globe, X, Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   solutions: {

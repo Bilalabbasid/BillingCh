@@ -7,7 +7,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   glowColor?: "teal" | "indigo" | "none";
 }
 
-export function Card({ className, hover = true, glowColor = "teal", children, ...props }: CardProps) {
+export function Card({ className, hover = true, children, ...props }: CardProps) {
   return (
     <div
       className={cn(
