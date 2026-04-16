@@ -3,9 +3,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, AlertCircle, ChevronDown } from "lucide-react";
+import { Send, AlertCircle, ChevronDown, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -54,16 +60,40 @@ function FieldError({ message }: { message?: string }) {
 }
 
 export function ContactForm() {
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log(data);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          first_name: data.firstName,
+          last_name: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          practice_name: data.practiceName,
+          specialty: data.specialty,
+          providers: data.providers,
+          services: data.services?.join(", ") ?? "",
+          message: data.message ?? "",
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setSubmitStatus("success");
+      reset();
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -205,6 +235,19 @@ export function ContactForm() {
         <Send className="w-4 h-4" />
         {isSubmitting ? "Sending..." : "Request a Demo"}
       </Button>
+
+      {submitStatus === "success" && (
+        <p className="flex items-center justify-center gap-2 text-sm text-teal font-medium">
+          <CheckCircle className="w-4 h-4 shrink-0" />
+          Thank you! We&apos;ll be in touch within 24 hours.
+        </p>
+      )}
+      {submitStatus === "error" && (
+        <p className="flex items-center justify-center gap-2 text-sm text-[#EF4444]">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          Something went wrong. Please try again or email us directly.
+        </p>
+      )}
 
       <p className="text-center text-xs text-[#94A3B8]">
         Response within 24 hours &middot; No commitment required &middot; HIPAA-safe
